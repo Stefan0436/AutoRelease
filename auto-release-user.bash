@@ -7,6 +7,9 @@ for i in `env | sed 's/=.*//'` ; do
 done
 source /etc/profile
 
+git config user.email "autorelease@localhost"
+git config user.name "AutoRelease User"
+
 DEST="/"
 BUILDDIR="build/bin"
 
