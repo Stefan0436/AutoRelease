@@ -1,5 +1,12 @@
 #!/bin/bash
 
+for i in `env | sed 's/=.*//'` ; do
+    if [ "$i" != "PATH" ] && [ "$i" != "dir" ]; then
+        unset $i
+    fi
+done
+source /etc/profile
+
 DEST="/"
 BUILDDIR="build/bin"
 
@@ -15,7 +22,7 @@ function log() {
     echo [AutoRelease] $@
 }
 
-function prepare(){ 
+function prepare(){
     true
 }
 
@@ -29,11 +36,11 @@ function install() {
     cp -rf "$BUILDDIR/." "$DEST"
 }
 
-function postInstall() { 
+function postInstall() {
     true
 }
 
-function publish() { 
+function publish() {
     true
 }
 
