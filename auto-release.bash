@@ -52,6 +52,7 @@ if [[ "$commit" =~ "#Release" ]]; then
             cd "$dir"
             if [ -f "$dir/build.release.bash" ]; then
                 mkdir /tmp/autoreleaseuser &> /dev/null
+                chown autorelease /tmp/autoreleaseuser
                 export dir="$dir"
                 
                 chown autorelease -R "$dir"
