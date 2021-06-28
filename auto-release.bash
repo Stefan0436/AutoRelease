@@ -51,13 +51,17 @@ if [[ "$commit" =~ "#Release" ]]; then
             echo [AutoRelease] Finding build script...
             cd "$dir"
             if [ -f "$dir/build.release.bash" ]; then
-                mkdir /tmp/autoreleaseuser &> /dev/null
-                chown autorelease /tmp/autoreleaseuser
                 export dir="$dir"
-                
-                chown autorelease -R "$dir"
                 echo "$REPO_DIR" > "$dir/tmp.repodir"
-                runuser --user autorelease -- bash "$SCRIPT_DIR/auto-release-user.bash" || errorExit    
+                if [ "$UID" == "0" ]; then
+                    mkdir /tmp/autoreleaseuser &> /dev/null
+                    chown autorelease /tmp/autoreleaseuser
+                    
+                    chown autorelease -R "$dir"
+                    runuser --user autorelease -- bash "$SCRIPT_DIR/auto-release-user.bash" || errorExit
+                else
+                    bash "$SCRIPT_DIR/auto-release-user.bash" || errorExit
+                fi
                 
                 if [ -f "${REPO_DIR}/autorelease.allow.install" ]; then
                     
