@@ -31,7 +31,7 @@ if [[ "$commit" =~ "#Release" ]]; then
         echo [AutoRelease] Reading file...
         found=false
         while read line; do
-            if [ "$line" == "$REMOTE_USER" ] && [ ! "$line" == "" ] && [ ! "$line" =~ ^"#".*$ ]; then
+            if [ "$line" == "$REMOTE_USER" ] && [ ! "$line" == "" ] && [[ ! "$line" =~ ^"#".*$ ]]; then
                 found=true
                 break
             fi
