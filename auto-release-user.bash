@@ -49,6 +49,8 @@ function publish() {
 
 source $dir/build.release.bash
 log Preparing...
+
+cd "$dir"
 prepare || exit 1
 cd "$dir"
 log Building...
@@ -56,8 +58,10 @@ build || exit 1
 echo
 log Publishing...
 echo
+cd "$dir"
 publish || exit 1
 
+cd "$dir"
 REPO_DIR="$(cat "$dir/tmp.repodir")"
 if [ -f "$REPO_DIR/autorelease.allow.install" ]; then
     echo "$DEST" > "$dir/tmp.dest"
